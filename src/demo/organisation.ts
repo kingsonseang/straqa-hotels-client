@@ -9,7 +9,7 @@ export const demoOrg: Organisation[] = [
   {
     id: "demo",
     name: "Vintage Residence",
-    subdomain: "vintage-recidence",
+    subdomain: "vintage-residence",
   },
   {
     id: "demo",
