@@ -50,7 +50,8 @@ export default async function SubdomainPage({
       <div className="flex-1 flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900">
-            Welcome to {subdomain}.{rootDomain}
+            Welcome to {subdomain}.{rootDomain} belonging to{" "}
+            {subdomainData?.name}
           </h1>
           <p className="mt-3 text-lg text-gray-600">
             This is a custom subdomain page for
