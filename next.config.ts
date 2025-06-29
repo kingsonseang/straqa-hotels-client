@@ -23,6 +23,10 @@ const nextConfig: NextConfig = {
     remotePatterns: ["http://localhost:3000", process.env.VERCEL_URL]
       .filter((url) => url !== undefined)
       .map((url) => {
+        if (!url.startsWith("http")) {
+          url = `https://${url}`;
+        }
+
         return new URL(`${url}/**`);
       }),
   },
