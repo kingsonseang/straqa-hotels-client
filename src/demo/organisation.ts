@@ -16,4 +16,9 @@ export const demoOrg: Organisation[] = [
     name: "Mayfair Hotels and Suites",
     subdomain: "mayfair-hotels",
   },
+  {
+    id: "demo",
+    name: "Totes Place",
+    subdomain: "totes-place",
+  },
 ];
