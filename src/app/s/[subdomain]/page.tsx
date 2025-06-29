@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
+import type React from "react";
 import { getSubdomainMetadata } from "@/actions/subdomains";
+import App from "@/frontend/app";
+import { getOrgPalette } from "@/lib/palette";
 import { protocol, rootDomain } from "@/lib/utils";
 
 export async function generateMetadata({
@@ -19,8 +21,11 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${subdomain}.${rootDomain}`,
-    description: `Subdomain page for ${subdomain}.${rootDomain}`,
+    title: subdomainData.name,
+    description: subdomainData.description,
+    icons: {
+      icon: `${protocol}://${rootDomain}/logos/${subdomain}/favicon.png`,
+    },
   };
 }
 
@@ -36,28 +41,28 @@ export default async function SubdomainPage({
     notFound();
   }
 
-  return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-b from-blue-50 to-white p-4">
-      <div className="absolute top-4 right-4">
-        <Link
-          href={`${protocol}://${rootDomain}`}
-          className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
-        >
-          {rootDomain}
-        </Link>
-      </div>
+  const logo = `${protocol}://${rootDomain}/logos/${subdomain}/logo.png`;
 
-      <div className="flex-1 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900">
-            Welcome to {subdomain}.{rootDomain} belonging to{" "}
-            {subdomainData?.name}
-          </h1>
-          <p className="mt-3 text-lg text-gray-600">
-            This is a custom subdomain page for
-          </p>
-        </div>
-      </div>
-    </div>
+  const palette = await getOrgPalette(logo);
+
+  // set up all color variables gotten from node vibrant
+  return (
+    <main
+      className="bg-[var(--domain-color-vibrant)]/10 text-[var(--domain-color-body)] min-h-svh pt-44"
+      style={
+        {
+          "--domain-color-vibrant": palette.vibrant,
+          "--domain-color-muted": palette.muted,
+          "--domain-color-light-vibrant": palette.lightVibrant,
+          "--domain-color-dark-vibrant": palette.darkMuted,
+          "--domain-color-light-muted": palette.lightMuted,
+          "--domain-color-dark-muted": palette.darkMuted,
+          "--domain-color-heading": palette.heading,
+          "--domain-color-body": palette.body,
+        } as React.CSSProperties
+      }
+    >
+      <App logo={logo} organisation={subdomainData} />
+    </main>
   );
 }
