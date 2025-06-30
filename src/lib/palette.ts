@@ -11,11 +11,12 @@ export type PaletteColors = {
   lightMuted?: string;
   heading?: string;
   body?: string;
+  shell?: string;
   [name: string]: string | undefined;
 };
 
 export async function getOrgPalette(src: string): Promise<PaletteColors> {
-  const palette = await Vibrant.from(src).getPalette();
+  const palette = await Vibrant.from(src).maxColorCount(20).getPalette();
 
   const result: PaletteColors = {};
 

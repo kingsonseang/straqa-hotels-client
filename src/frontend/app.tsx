@@ -19,7 +19,10 @@ export default function App({ logo, organisation }: AppProps) {
       <Header logo={logo} organisation={organisation} />
       <Routes>
         <Route index element={<Home organisation={organisation} />} />
-        <Route path="/p/:propertyId" element={<Property />} />
+        <Route
+          path="/p/:propertyId"
+          element={<Property properties={organisation.properties || []} />}
+        />
         <Route path="/p/:propertyId/book" element={<Book />} />
       </Routes>
       <Footer logo={logo} organisation={organisation} />

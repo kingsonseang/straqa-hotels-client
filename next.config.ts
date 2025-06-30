@@ -20,7 +20,11 @@ const nextConfig: NextConfig = {
     return config;
   },
   images: {
-    remotePatterns: ["http://localhost:3000", process.env.VERCEL_URL]
+    remotePatterns: [
+      "http://localhost:3000",
+      "https://picsum.photos",
+      process.env.VERCEL_URL,
+    ]
       .filter((url) => url !== undefined)
       .map((url) => {
         if (!url.startsWith("http")) {
