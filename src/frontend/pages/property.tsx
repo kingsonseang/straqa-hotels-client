@@ -19,7 +19,7 @@ import type { Property as IProperty } from "@/validators/property";
 import { PropertyCard } from "../components/features/property-card";
 
 export default function Property({ properties }: { properties: IProperty[] }) {
-  const { id } = useParams();
+  const { propertyId: id } = useParams();
 
   const property = properties.find((property) => property.id === id);
 
@@ -105,8 +105,8 @@ export default function Property({ properties }: { properties: IProperty[] }) {
         </Link>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+      <div className="pt-8 pb-12">
+        <div className="flex flex-col-reverse lg:grid grid-cols-2 gap-8 mb-12">
           {/* Left Column - Property Info */}
           <div className="space-y-6">
             {/* Title and Price - Same line with flex wrap */}
@@ -248,7 +248,7 @@ export default function Property({ properties }: { properties: IProperty[] }) {
                         height={400}
                         className={`w-full h-full object-cover rounded-lg transition-all ${
                           index === selectedImageIndex
-                            ? "ring-2 ring-blue-600 opacity-100"
+                            ? "opacity-100"
                             : "opacity-70 hover:opacity-100"
                         }`}
                       />
