@@ -6,11 +6,11 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      {
-        source: "/",
-        destination: "https://straqa.com",
-        permanent: true,
-      },
+      // {
+      //   source: "/",
+      //   destination: "https://straqa.com",
+      //   permanent: true,
+      // },
     ];
   },
   turbopack: {
@@ -31,6 +31,7 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       "http://localhost:3000",
+      "http://localhost:3001",
       "https://picsum.photos",
       process.env.VERCEL_URL,
     ]

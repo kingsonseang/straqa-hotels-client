@@ -13,6 +13,8 @@ export default async function PropertyPage({
   const { subdomain, propertyId } = await params;
   const subdomainData = await getSubdomainMetadata(subdomain);
 
+  console.log(subdomain);
+
   if (!subdomainData) {
     notFound();
   }
