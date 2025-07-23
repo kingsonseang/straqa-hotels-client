@@ -78,7 +78,10 @@ export default function Book({ property, organisation }: BookProps) {
     }
   };
 
-  const handleInputChange = (field: keyof CreateBooking, value: any) => {
+  const handleInputChange = (
+    field: keyof CreateBooking,
+    value: string | number,
+  ) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
