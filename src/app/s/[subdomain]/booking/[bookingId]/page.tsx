@@ -2,15 +2,15 @@ import { notFound } from "next/navigation";
 import { getSubdomainMetadata } from "@/actions/subdomains";
 import Footer from "@/frontend/navigation/footer";
 import Header from "@/frontend/navigation/header";
-import Home from "@/frontend/pages/home";
+import BookingDetails from "@/frontend/pages/booking-details";
 import { protocol, rootDomain } from "@/lib/utils";
 
-export default async function SubdomainPage({
+export default async function BookingDetailsPage({
   params,
 }: {
-  params: Promise<{ subdomain: string }>;
+  params: Promise<{ subdomain: string; bookingId: string }>;
 }) {
-  const { subdomain } = await params;
+  const { subdomain, bookingId } = await params;
   const subdomainData = await getSubdomainMetadata(subdomain);
 
   if (!subdomainData) {
@@ -22,7 +22,7 @@ export default async function SubdomainPage({
   return (
     <>
       <Header logo={logo} organisation={subdomainData} />
-      <Home organisation={subdomainData} />
+      <BookingDetails bookingId={bookingId} organisation={subdomainData} />
       <Footer logo={logo} organisation={subdomainData} />
     </>
   );

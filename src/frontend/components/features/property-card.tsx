@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Link } from "react-router";
+import Link from "next/link";
 import type { Property } from "@/validators/property";
 import Money from "../../assets/money.svg";
 
@@ -22,7 +22,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
 
   return (
     <Link
-      to={to}
+      href={to}
       className="bg-white rounded-2xl shadow-sm transition-all duration-300 overflow-hidden group grid lg:grid-cols-2"
     >
       <div className="flex gap-2 p-2">

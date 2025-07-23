@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Link } from "react-router";
+import Link from "next/link";
 import type { Organisation } from "@/validators/organisation";
 import Building from "../assets/buildings.svg";
 import straqaLogo from "../assets/straqa-logo.png";
@@ -46,8 +46,8 @@ export default function Footer({
                 </h2>
 
                 <div className="grid gap-3">
-                  <Link to="/">Home</Link>
-                  <Link to="/p">Properties</Link>
+                  <Link href="/">Home</Link>
+                  <Link href="/p">Properties</Link>
                 </div>
               </div>
 
@@ -61,8 +61,8 @@ export default function Footer({
                     ([key, value]) => (
                       <Link
                         key={key}
-                        to={value}
-                        target="__blank"
+                        href={value}
+                        target="_blank"
                         className="capitalize"
                       >
                         {key}
@@ -82,8 +82,8 @@ export default function Footer({
                     ([key, value]) => (
                       <Link
                         key={key}
-                        to={value}
-                        target="__blank"
+                        href={value}
+                        target="_blank"
                         className="capitalize"
                       >
                         {key}
@@ -100,7 +100,7 @@ export default function Footer({
 
             <div className="flex gap-2 items-center">
               <p>Powered by</p>
-              <Link to="https://straqa.com">
+              <Link href="https://straqa.com" target="_blank">
                 <Image
                   src={straqaLogo}
                   alt="Straqa Logo"

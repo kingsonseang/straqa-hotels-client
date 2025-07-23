@@ -3,8 +3,9 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react"; // Import X for close icon
 import Image from "next/image";
+import Link from "next/link"; // Use next/link for Next.js navigation
+import { usePathname } from "next/navigation";
 import React from "react";
-import { Link, NavLink } from "react-router"; // Use next/link for Next.js navigation
 import { cn } from "@/lib/utils"; // Your utility for tailwind-merge
 import type { Organisation } from "@/validators/organisation";
 
@@ -22,12 +23,17 @@ export default function Header({
   organisation: Organisation;
 }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const pathname = usePathname();
+
+  const isActiveLink = (path: string) => {
+    return pathname === path;
+  };
 
   return (
     <header className="fixed top-4 left-0 right-0 z-50 flex w-screen items-center justify-center p-4">
       {/* Increased z-index to 50, common for headers */}
       <div className="relative flex w-full container mx-auto items-center justify-between bg-white p-3 md:p-4 lg:px-6 rounded-full shadow-md shadow-[#00000012]">
-        <Link to="/">
+        <Link href="/">
           <Image
             src={logo}
             alt={`${organisation.name} Logo`}
@@ -40,18 +46,20 @@ export default function Header({
         {/* Desktop Navigation */}
         <nav className="hidden md:flex pr-3 space-x-2 [&_a]:px-2 [&_a]:transition-colors [&_a]:ease-in [&_a]:duration-100">
           {navLinks.map((link) => (
-            <NavLink
+            <Link
               key={link.path}
-              to={link.path}
-              className={({ isActive }) =>
-                cn(
-                  "font-medium text-[var(--domain-color-heading)] hover:text-[var(--domain-color-dark-vibrant)]/80",
-                  { "text-[var(--domain-color-dark-vibrant)]": isActive },
-                )
-              }
+              href={link.path}
+              className={cn(
+                "font-medium text-[var(--domain-color-heading)] hover:text-[var(--domain-color-dark-vibrant)]/80",
+                {
+                  "text-[var(--domain-color-dark-vibrant)]": isActiveLink(
+                    link.path,
+                  ),
+                },
+              )}
             >
               {link.label}
-            </NavLink>
+            </Link>
           ))}
         </nav>
 
@@ -96,22 +104,19 @@ export default function Header({
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: index * 0.05 }} // Slightly faster delay
                   >
-                    <NavLink
-                      to={link.path}
-                      className={({ isActive }) =>
-                        cn(
-                          "block text-2xl font-semibold py-3 px-4 rounded-md transition-colors hover:bg-[var(--domain-color-vibrant)]/10 hover:text-[var(--domain-color-vibrant)] text-[var(--domain-color-heading)]",
-
-                          {
-                            "bg-[var(--domain-color-vibrant)] text-white":
-                              isActive,
-                          },
-                        )
-                      }
+                    <Link
+                      href={link.path}
+                      className={cn(
+                        "block text-2xl font-semibold py-3 px-4 rounded-md transition-colors hover:bg-[var(--domain-color-vibrant)]/10 hover:text-[var(--domain-color-vibrant)] text-[var(--domain-color-heading)]",
+                        {
+                          "bg-[var(--domain-color-vibrant)] text-white":
+                            isActiveLink(link.path),
+                        },
+                      )}
                       onClick={() => setIsMenuOpen(false)} // Close menu on click
                     >
                       {link.label}
-                    </NavLink>
+                    </Link>
                   </motion.div>
                 ))}
               </nav>

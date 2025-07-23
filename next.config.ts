@@ -4,6 +4,15 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "https://straqa.com",
+        permanent: true,
+      },
+    ];
+  },
   turbopack: {
     rules: {
       "*.svg": {

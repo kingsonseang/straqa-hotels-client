@@ -2,15 +2,15 @@ import { notFound } from "next/navigation";
 import { getSubdomainMetadata } from "@/actions/subdomains";
 import Footer from "@/frontend/navigation/footer";
 import Header from "@/frontend/navigation/header";
-import Home from "@/frontend/pages/home";
+import Property from "@/frontend/pages/property";
 import { protocol, rootDomain } from "@/lib/utils";
 
-export default async function SubdomainPage({
+export default async function PropertyPage({
   params,
 }: {
-  params: Promise<{ subdomain: string }>;
+  params: Promise<{ subdomain: string; propertyId: string }>;
 }) {
-  const { subdomain } = await params;
+  const { subdomain, propertyId } = await params;
   const subdomainData = await getSubdomainMetadata(subdomain);
 
   if (!subdomainData) {
@@ -22,7 +22,10 @@ export default async function SubdomainPage({
   return (
     <>
       <Header logo={logo} organisation={subdomainData} />
-      <Home organisation={subdomainData} />
+      <Property
+        properties={subdomainData.properties || []}
+        propertyId={propertyId}
+      />
       <Footer logo={logo} organisation={subdomainData} />
     </>
   );

@@ -1,3 +1,5 @@
+"use client";
+
 import useEmblaCarousel from "embla-carousel-react";
 import {
   ArrowLeft,
@@ -13,15 +15,18 @@ import {
   Zap,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
 import type { Property as IProperty } from "@/validators/property";
 import { PropertyCard } from "../components/features/property-card";
 
-export default function Property({ properties }: { properties: IProperty[] }) {
-  const { propertyId: id } = useParams();
+interface PropertyProps {
+  properties: IProperty[];
+  propertyId: string;
+}
 
-  const property = properties.find((property) => property.id === id);
+export default function Property({ properties, propertyId }: PropertyProps) {
+  const property = properties.find((property) => property.id === propertyId);
 
   console.log(properties, property);
 
@@ -99,7 +104,7 @@ export default function Property({ properties }: { properties: IProperty[] }) {
   return (
     <div className="container mx-auto space-y-10 px-4">
       <div>
-        <Link to="/" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2">
           <ArrowLeft className="text-[var(--domain-color-vibrant)]" />{" "}
           <span>Back</span>
         </Link>
@@ -162,6 +167,16 @@ export default function Property({ properties }: { properties: IProperty[] }) {
               <p className="text-gray-600 leading-relaxed">
                 {property.description}
               </p>
+            </div>
+
+            {/* Book Now Button */}
+            <div className="pt-6">
+              <Link
+                href={`/p/${property.id}/book`}
+                className="inline-flex items-center px-8 py-3 bg-[var(--domain-color-vibrant)] hover:bg-[var(--domain-color-dark-vibrant)] text-white font-semibold rounded-lg transition-colors duration-200"
+              >
+                Book Now - ₦{property.pricePerNight.toLocaleString()}/night
+              </Link>
             </div>
 
             {/* Property Features */}
